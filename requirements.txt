@@ -1,0 +1,5 @@
+Flask==1.0.2
+numpy==1.14.0
+Keras==2.2.4
+scipy==1.0.0
+pandas==0.17.1

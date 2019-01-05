@@ -2,10 +2,8 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-from keras.layers import MaxPooling2D, Convolution2D, Dropout, Dense, Flatten, BatchNormalization, Reshape
+from keras.layers import MaxPooling2D, Convolution2D, Dropout, Dense, Flatten, BatchNormalization 
 from keras.models import Sequential, save_model
-from keras.utils import np_utils
-import pickle
 import argparse
 import keras
 import numpy as np
@@ -58,8 +56,8 @@ def load_data(train_file_path, test_file_path, verbose=False):
     train_data = np.apply_along_axis(flip_and_rotate, 1, train_data)
     test_data = np.apply_along_axis(flip_and_rotate, 1, test_data)
 
-    train_data = train_data.reshape([-1, 28, 28, 1])
-    test_data = test_data.reshape([-1, 28, 28, 1])
+    train_data = train_data.reshape([-1, IMG_SZ, IMG_SZ, 1])
+    test_data = test_data.reshape([-1, IMG_SZ, IMG_SZ, 1])
 
     # Normalize
     train_data = train_data/255
