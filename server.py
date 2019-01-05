@@ -48,18 +48,6 @@ def predict():
     '''
 
     # Local functions
-    def crop(x):
-        # Experimental
-        _len = len(x) - 1
-        for index, row in enumerate(x[::-1]):
-            z_flag = False
-            for item in row:
-                if item != 0:
-                    z_flag = True
-                    break
-            if z_flag == False:
-                x = np.delete(x, _len - index, 0)
-        return x
     def parseImage(imgData):
         # parse canvas bytes and save as output.png
         imgstr = re.search(b'base64,(.*)', imgData).group(1)
@@ -72,14 +60,6 @@ def predict():
     # read parsed image back in 8-bit, black and white mode (L)
     x = imread('output.png', mode='L')
     x = np.invert(x)
-
-    ### Experimental
-    # Crop on rows
-    # x = crop(x)
-    # x = x.T
-    # Crop on columns
-    # x = crop(x)
-    # x = x.T
 
     # Visualize new array
     imsave('resized.png', x)
@@ -113,6 +93,7 @@ if __name__ == '__main__':
 
     # Overhead
     model = load_model(args.bin)
+    model._make_predict_function()
     mapping = pickle.load(open('%s/mapping.p' % args.bin, 'rb'))
 
     app.run(host=args.host, port=args.port)
